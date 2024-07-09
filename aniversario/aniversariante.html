@@ -1,0 +1,102 @@
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aniversariante</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+        #slideshow-container {
+            max-width: 600px;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #slideshow {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        .slide {
+            min-width: 100%;
+        }
+        #slideshow img {
+            width: 100%;
+            vertical-align: middle;
+        }
+        #dados-aniversariante {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: none; /* Inicialmente oculto */
+        }
+        #dados-aniversariante h2 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        #dados-aniversariante p {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="slideshow-container">
+    <div id="slideshow">
+        <div class="slide"><img src="foto1.jpg" alt="Foto 1"></div>
+        <div class="slide"><img src="foto2.jpg" alt="Foto 2"></div>
+        <div class="slide"><img src="foto3.jpg" alt="Foto 3"></div>
+        <div class="slide"><img src="foto4.jpg" alt="Foto 4"></div>
+        <div class="slide"><img src="foto5.jpg" alt="Foto 5"></div>
+    </div>
+</div>
+
+<div id="dados-aniversariante">
+    <h2>Dados do Aniversariante</h2>
+    <p><strong>Nome:</strong> <span id="nome"></span></p>
+    <p><strong>Idade:</strong> <span id="idade"></span></p>
+    <p><strong>Mensagem:</strong> <span id="mensagem"></span></p>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Dados do Local Storage
+        var dadosCadastro = localStorage.getItem('cadastro');
+        
+        if (dadosCadastro) {
+            // Parse do JSON para objeto JavaScript
+            var cadastro = JSON.parse(dadosCadastro);
+            
+            // Exibição dos dados do aniversariante
+            $('#nome').text(cadastro.nome);
+            $('#idade').text(cadastro.idade);
+            $('#mensagem').text(cadastro.mensagem);
+            
+            // Exibição dos dados do aniversariante com efeito
+            $('#dados-aniversariante').fadeIn(1000);
+        }
+        
+        // Slideshow
+        var currentIndex = 0;
+        var slides = $('.slide');
+        var totalSlides = slides.length;
+        
+        setInterval(function() {
+            slides.eq(currentIndex).fadeOut(1000);
+            currentIndex = (currentIndex + 1) % totalSlides;
+            slides.eq(currentIndex).fadeIn(1000);
+        }, 3000); // Troca de slide a cada 3 segundos
+    });
+</script>
+
+</body>
+<html></html>
